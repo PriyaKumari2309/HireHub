@@ -29,7 +29,7 @@ const server = http.createServer(app);
 const allowedOrigins = [
   "http://localhost:5173",
   // "http://localhost:8000",
-  // "https://hirehub-frontend-m4t1.onrender.com",
+  "https://hirehub-b4lc.onrender.com",
 ];
 
 // Initialize Socket.IO

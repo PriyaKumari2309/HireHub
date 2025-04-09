@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { USER_API_END_POINT } from "@/utils/constant";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState(""); // Added email state
@@ -14,7 +15,7 @@ const ResetPassword = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/user/reset-password",
+        `${USER_API_END_POINT}/reset-password`,
         {
           email, // Sending email along with OTP and newPassword
           otp,

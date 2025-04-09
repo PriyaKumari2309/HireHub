@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { USER_API_END_POINT } from "@/utils/constant";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/user/forgot-password",
+        `${USER_API_END_POINT}/forgot-password`,
         { email },
         { withCredentials: true }
       );
