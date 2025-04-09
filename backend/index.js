@@ -67,9 +67,9 @@ app.use("/api/v1/application", applicationRoute);
 app.use("/api/v1/notification", notificationRoute);
 
 // Serve frontend (AFTER routes)
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.get("*", (_, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
 });
 
 // Socket.IO setup
