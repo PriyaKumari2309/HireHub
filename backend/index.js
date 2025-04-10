@@ -28,7 +28,7 @@ const server = http.createServer(app);
 // Allowed frontend origins
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://hirehub-frontend-d67z.onrender.com",
+  // "https://hirehub-frontend-d67z.onrender.com",
 ];
 
 // 🔥 CORS middleware (place this BEFORE all other middleware/routes)
