@@ -28,10 +28,30 @@ const server = http.createServer(app);
 // Allowed frontend origins
 const allowedOrigins = [
   "http://localhost:5173",
-  // "http://localhost:8000",
-  // "https://hirehub-b4lc.onrender.com",
   "https://hirehub-frontend-d67z.onrender.com",
 ];
+
+// 🔥 CORS middleware (place this BEFORE all other middleware/routes)
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
+// Handle preflight requests explicitly
+app.options(
+  "*",
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
+// Core middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Initialize Socket.IO
 const io = new Server(server, {
@@ -43,18 +63,7 @@ const io = new Server(server, {
 });
 export { io };
 
-// Middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
-
-// Attach io instance to every request
+// Attach io to every request
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -67,7 +76,7 @@ app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 app.use("/api/v1/notification", notificationRoute);
 
-// Serve frontend (AFTER routes)
+// Serve frontend (only after routes)
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.get("*", (_, res) => {
   res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
@@ -97,7 +106,7 @@ io.on("connection", (socket) => {
   });
 });
 
-// Connect to DB and start server
+// Start the server and connect to DB
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
   connectDB();
