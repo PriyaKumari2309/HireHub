@@ -30,6 +30,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   // "http://localhost:8000",
   // "https://hirehub-b4lc.onrender.com",
+  "https://hirehub-frontend-d67z.onrender.com",
 ];
 
 // Initialize Socket.IO
