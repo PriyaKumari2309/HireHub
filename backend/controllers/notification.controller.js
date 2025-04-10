@@ -1,16 +1,19 @@
 import { Notification } from "../models/notification.model.js";
-import { io } from "../index.js"; // Socket.IO instance
 
 // CREATE a new notification and emit real-time event
 export const createNotification = async (req, res) => {
   try {
     const { senderId, receiverId, type, message, userType, link } = req.body;
 
-    if (!senderId || !receiverId || !type || !message || !userType) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing required fields",
-      });
+    // Better validation
+    const requiredFields = { senderId, receiverId, type, message, userType };
+    for (const [key, value] of Object.entries(requiredFields)) {
+      if (!value) {
+        return res.status(400).json({
+          success: false,
+          message: `${key} is required`,
+        });
+      }
     }
 
     const newNotification = await Notification.create({
@@ -23,8 +26,8 @@ export const createNotification = async (req, res) => {
       createdAt: new Date(),
     });
 
-    // Emit to a specific receiver based on their userType and ID
-    io.emit(`notify:${userType}:${receiverId}`, newNotification);
+    // Emit to a specific receiver's Socket.IO room
+    req.io.to(receiverId).emit("getNotification", newNotification);
 
     res.status(201).json({
       success: true,
@@ -40,11 +43,11 @@ export const createNotification = async (req, res) => {
 // GET all notifications for the logged-in user
 export const getNotifications = async (req, res) => {
   try {
-    const userId = req.id; // Set via middleware
+    const userId = req.id;
 
-    const notifications = await Notification.find({ userId }).sort({
-      createdAt: -1,
-    });
+    const notifications = await Notification.find({ userId })
+      .sort({ createdAt: -1 })
+      .lean(); // faster, plain JS objects
 
     res.status(200).json({ success: true, notifications });
   } catch (err) {
@@ -56,10 +59,14 @@ export const getNotifications = async (req, res) => {
 // MARK all notifications as read
 export const markAllAsRead = async (req, res) => {
   try {
-    await Notification.updateMany({ userId: req.id }, { $set: { read: true } });
-    res
-      .status(200)
-      .json({ success: true, message: "All notifications marked as read" });
+    await Notification.updateMany(
+      { userId: req.id, read: false },
+      { $set: { read: true } }
+    );
+    res.status(200).json({
+      success: true,
+      message: "All notifications marked as read",
+    });
   } catch (err) {
     console.error("Mark as Read Error:", err);
     res.status(500).json({ success: false, message: "Server Error" });
@@ -70,11 +77,26 @@ export const markAllAsRead = async (req, res) => {
 export const clearAllNotifications = async (req, res) => {
   try {
     await Notification.deleteMany({ userId: req.id });
-    res
-      .status(200)
-      .json({ success: true, message: "All notifications cleared" });
+    res.status(200).json({
+      success: true,
+      message: "All notifications cleared",
+    });
   } catch (err) {
     console.error("Clear Notifications Error:", err);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+// OPTIONAL: Get unread count for badge
+export const getUnreadCount = async (req, res) => {
+  try {
+    const count = await Notification.countDocuments({
+      userId: req.id,
+      read: false,
+    });
+    res.status(200).json({ success: true, count });
+  } catch (err) {
+    console.error("Unread Count Error:", err);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
