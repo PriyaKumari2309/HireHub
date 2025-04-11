@@ -52,17 +52,106 @@ This is a full-stack Job Portal that connects job seekers and recruiters. It fea
 
 ```
 job-portal/
-├── frontend/            # Frontend (React) source code
-│   ├── src/     # Controller logic
-│   ├── routes/          # API endpoints
-│   └── index.js         # App entry point
-├── backend/              # Backend (Express) source code
-│   ├── controllers/     # Controller logic
-│   ├── routes/          # API endpoints
-│   └── index.js         # App entry point
-├── images/              # Screenshots and assets for README
-├── .env.example         # Sample environment file
-└── README.md            # This file
+├── backend/                      # Backend (Express.js) source code
+│   ├── controllers/             
+│   │   ├── application.controller.js
+│   │   ├── company.controller.js
+│   │   ├── job.controller.js
+│   │   ├── notification.controller.js
+│   │   └── user.controller.js
+│   ├── middleware/
+│   │   ├── isauthenticated.js
+│   │   └── multer.js
+│   ├── models/
+│   │   ├── application.model.js
+│   │   ├── company.model.js
+│   │   ├── job.model.js
+│   │   ├── notification.model.js
+│   │   └── user.model.js
+│   ├── routes/
+│   │   ├── application.routes.js
+│   │   ├── company.routes.js
+│   │   ├── job.routes.js
+│   │   ├── notification.routes.js
+│   │   └── user.routes.js
+│   ├── utils/
+│   │   ├── cloudinary.js
+│   │   ├── datauri.js
+│   │   └── db.js
+│   ├── .env
+│   └── index.js
+
+├── frontend/                     # Frontend (React.js) source code
+│   ├── public/
+│   │   └── logos
+│   ├── src/
+│   │   ├── components/
+│   │   |   ├── admin/
+│   │   │       ├── AdminJobs.jsx
+│   │   │       ├── AdminJobTable.jsx
+│   │   │       ├── Applicants.jsx
+│   │   │       ├── ApplicantsTable.jsx
+│   │   │       ├── Companies.jsx
+│   │   │       ├── CompaniesTable.jsx
+│   │   │       └── CompanyCreate.jsx
+│   │   │       └── CompanySetup.jsx
+│   │   │       └── PostJob.jsx
+│   │   │       └── ProtectedRoute.jsx
+|   |   |
+│   │   |   ├── auth/
+│   │   │       ├── Login.jsx
+│   │   │       └── Signup.jsx
+│   │   |   ├── shared/
+│   │   │       ├── Footer.jsx
+│   │   │       └── Navbar.jsx
+│   │   |
+│   │   │   ├── AppliedJobTable.jsx
+│   │   │   ├── Browse.jsx
+│   │   │   ├── CategoryCarousel.jsx
+│   │   │   ├── FilterCard.jsx
+│   │   │   └── ForgotPassword.jsx
+│   │   │   ├── HeroSection.jsx
+│   │   │   ├── Home.jsx
+│   │   │   ├── Job.jsx
+│   │   │   ├── JobDescription.jsx
+│   │   │   ├── Jobs.jsx
+│   │   │   ├── LatestJobCards.jsx
+│   │   │   ├── LatestJobs.jsx
+│   │   │   ├── NotificationBell.jsx
+│   │   │   ├── Profile.jsx
+│   │   │   ├── ResetPassword.jsx
+│   │   │   └── UpdateProfileDialog.jsx
+│   │   ├── hooks/
+│   │   │   ├── useGetAllAdmin.jsx
+│   │   │   ├── useGetAllAdminJobs.jsx
+│   │   │   ├── useGetAllCompanies.jsx
+│   │   │   ├── useGetAllJobs.jsx
+│   │   │   ├── useGetAppliedJob.jsx
+│   │   │   └── useGetCompany.jsx
+│   │   ├── redux/
+│   │   │   ├── applicationSlice.jsx
+│   │   │   ├── authSlice.jsx
+│   │   │   ├── companySlice.jsx
+│   │   │   ├── jobSlice.jsx
+│   │   │   ├── notificationSlice.jsx
+│   │   │   └── store.jsx
+│   │   ├── utils/
+│   │   │   └── constant.jsx
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   ├── main.jsx
+│   │   └── socket.js
+│   ├── .env
+│   ├── index.html
+│   ├── jsconfig.json
+│   ├── package-lock.json
+│   ├── package.json
+│   └── vite.config.js
+
+├── README.md
+└── .gitignore
+
 ```
 
 ---
