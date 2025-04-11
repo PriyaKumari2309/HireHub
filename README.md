@@ -262,13 +262,6 @@ npm run dev
 
 ---
 
-### Next Steps:
-
-1. **Customize the placeholders** (e.g., `your-username`, `your_mongodb_uri`, etc.) with your actual data.
-2. **Place your screenshots** in the `images/` folder with the exact filenames referenced in the README.
-3. Commit and push your updated README to GitHub.
-
-This combined README clearly explains both frontend and backend setup in one file while also showcasing your project features, tech stack, and other important details. Let me know if you need further changes or additional sections!
 
 
 
