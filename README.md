@@ -32,19 +32,36 @@ This is a full-stack Job Portal that connects job seekers and recruiters. It fea
 ## 📸 Screenshots
 
 ### 🔐 Login & Register
-![Login Page](images/login-page.png)
+![Login Page](images/login.png)
 
 ### 🧑‍💼 Recruiter Dashboard
-![Recruiter Dashboard](images/recruiter-dashboard.png)
+![Recruiter Dashboard](images/recruiterdashboard.png)
 
 ### 📄 Job Application Page
-![Job Application](images/job-application.png)
+![Job Application](images/jobdescription.png)
 
-### 📁 Resume Upload Feature
-![Resume Upload](images/resume-upload.png)
+### 📁 Job Section Page
+![Job Section](images/jobssection.png)
+
+### 📁 Latest Job Openings Page
+![Latest Job Section Section](images/latestjobopenings.png)
+
+### 📁 Recruiter Action Page
+![Recruiter Action](images/recruiteraction.png)
+
+### 📁 Reset Password Page
+![Reset Password Section](images/resetpassword.png)
+
+### 📁 User Dashboard Page
+![User Dashboard](images/userdashboard.png)
+
+
+### 📁 User Profile Page
+![User Profile](images/userprofile.png)
+
 
 ### 🔔 Real-time Notification Popup
-![Notification](images/real-time-notification.png)
+![Notification](images/browseandnotification.png)
 
 ---
 
@@ -148,7 +165,7 @@ job-portal/
 │   ├── package-lock.json
 │   ├── package.json
 │   └── vite.config.js
-
+├── images/                     # Screenshots 
 ├── README.md
 └── .gitignore
 
