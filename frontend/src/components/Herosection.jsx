@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { setSearchedQuery } from "@/redux/jobSlice";
 import { useNavigate } from "react-router-dom";
 import CategoryCarousel from "./CategoryCarousel";
+import Typed from "react-typed"; // ✅ Correct default import
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
   const [query, setQuery] = useState("");
@@ -19,26 +21,64 @@ const HeroSection = () => {
   return (
     <div className="w-full flex flex-col items-center">
       {/* Gradient Box */}
-      <div className="w-[90%] md:w-[80%] lg:w-[75%] rounded-xl bg-gradient-to-r from-purple-800 to-purple-950 text-white py-10 px-6 text-center mt-10">
+      <motion.div
+        className="w-[90%] md:w-[80%] lg:w-[75%] rounded-xl bg-gradient-to-r from-purple-800 to-purple-950 text-white py-10 px-6 text-center mt-10"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         {/* Tagline Badge */}
-        <span className="inline-block mb-4 px-4 py-1 rounded-full bg-white text-[#F83002] font-semibold text-sm shadow">
+        <motion.span
+          className="inline-block mb-4 px-4 py-1 rounded-full bg-white text-[#F83002] font-semibold text-sm shadow"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
           The No.1 Job Hunt Website
-        </span>
+        </motion.span>
 
         {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
+        <motion.h1
+          className="text-4xl sm:text-5xl font-bold leading-tight mb-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           Search, Apply. <br />
-          Land your <span className="text-yellow-400">Dream Job</span>
-        </h1>
+          Land your{" "}
+          <span className="text-yellow-400">
+            <Typed
+              strings={[
+                "Dream Job",
+                "Ideal Role",
+                "Perfect Position",
+                "Next Opportunity",
+              ]}
+              typeSpeed={80}
+              backSpeed={50}
+              loop
+            />
+          </span>
+        </motion.h1>
 
         {/* Subtext */}
-        <p className="mb-6 text-gray-100 text-sm sm:text-base">
+        <motion.p
+          className="mb-6 text-gray-100 text-sm sm:text-base"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
           Discover thousands of job opportunities and take the next step in your
           career today!
-        </p>
+        </motion.p>
 
         {/* Search Box */}
-        <div className="flex max-w-xl mx-auto w-full bg-white rounded-full overflow-hidden shadow-md h-12 mb-6">
+        <motion.div
+          className="flex max-w-xl mx-auto w-full bg-white rounded-full overflow-hidden shadow-md h-12 mb-6"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6 }}
+        >
           <input
             type="text"
             placeholder="Find your dream job"
@@ -51,14 +91,19 @@ const HeroSection = () => {
           >
             <Search className="h-5 w-5" />
           </button>
-        </div>
+        </motion.div>
 
         {/* Category Carousel */}
         <CategoryCarousel />
-      </div>
+      </motion.div>
 
-      {/* Trusted By Section (separated box) */}
-      <div className="mt-12 w-[90%] md:w-[80%] lg:w-[75%] bg-white rounded-xl shadow-md py-6 px-6 text-center border border-gray-200">
+      {/* Trusted By Section */}
+      <motion.div
+        className="mt-12 w-[90%] md:w-[80%] lg:w-[75%] bg-white rounded-xl shadow-md py-6 px-6 text-center border border-gray-200"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+      >
         <h3 className="text-gray-800 text-xl font-bold mb-4">Trusted by</h3>
         <div className="flex justify-center items-center gap-6 flex-wrap">
           <img
@@ -97,7 +142,7 @@ const HeroSection = () => {
             className="h-6 sm:h-8 object-contain"
           />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
